@@ -107,7 +107,7 @@ func (r *Remote) start() {
 	for {
 		bs2c := r.config.BioStar2
 		r.bioStar2 = biostar2.NewAPI(bs2c.Url, bs2c.Username, bs2c.Password)
-		r.log("connecting to websocket", r.bioStar2)
+		r.log("connecting to websocket")
 		r.querySession <- true
 		r.bioStar2.WebSocket(r.recv, r.send, r.done)
 		select {
