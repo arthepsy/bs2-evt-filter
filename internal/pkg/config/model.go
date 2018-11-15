@@ -1,12 +1,14 @@
 package config
 
 import (
+	"sync"
 	"time"
 )
 
 type Config struct {
 	path       string
 	name       string
+	lock       *sync.Mutex
 	OnReload   func()
 	lastReload time.Time
 

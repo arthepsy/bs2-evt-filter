@@ -89,7 +89,7 @@ func newRemote(name string, rc config.RemoteConf, hub *ws.Hub) *Remote {
 		send:         make(chan []byte),
 		done:         make(chan struct{}),
 		wait:         new(sync.WaitGroup),
-		lock:         &sync.Mutex{},
+		lock:         new(sync.Mutex),
 		session:      make(chan string),
 		querySession: make(chan bool),
 		renewSession: time.NewTicker(time.Duration(rc.Retry.Session) * time.Second),

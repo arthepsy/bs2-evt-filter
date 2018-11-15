@@ -3,6 +3,7 @@ package config
 import (
 	"log"
 	"strings"
+	"sync"
 	"time"
 
 	"bs2-evt-filter/pkg/sstr"
@@ -20,6 +21,7 @@ func NewConfig(path string, name string) *Config {
 	return &Config{
 		path:       path,
 		name:       name,
+		lock:       new(sync.Mutex),
 		OnReload:   nil,
 		lastReload: time.Now().Add(time.Second * -5),
 	}
@@ -30,8 +32,13 @@ func (c *Config) Read() {
 	viper.AddConfigPath(c.path)
 	viper.WatchConfig()
 	viper.OnConfigChange(func(e fsnotify.Event) {
+		if time.Now().Sub(c.lastReload) < time.Second*1 {
+			return
+		}
 		log.Println("[config] file changed:", e.Name)
+		c.lock.Lock()
 		c.reload()
+		c.lock.Unlock()
 	})
 	err := viper.ReadInConfig()
 	if err != nil {
@@ -53,9 +60,6 @@ func (c *Config) readMap(name string) map[string]string {
 }
 
 func (c *Config) reload() {
-	if time.Now().Sub(c.lastReload) < time.Second*1 {
-		return
-	}
 	c.lastReload = time.Now()
 
 	svc := new(ServiceConf)
