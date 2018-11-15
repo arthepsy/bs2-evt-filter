@@ -1,0 +1,29 @@
+[service]
+name = "bs2f-example"
+display = "BioStar2 filter (example)"
+
+[server]
+port = 8433
+
+[clients]
+test = "test_password"
+prod = "prod_password"
+
+[local.biostar2]
+url = "https://127.0.0.1"
+username = "bio"
+password = "bio_password"
+
+[local.retry]
+http = 15
+websocket = 10
+session = 600
+
+[local.filter.device_id]
+dev1 = "123456789"
+dev2 = "987654321"
+
+[local.filter.event_type_code]
+#IDENTIFY_SUCCESS_FINGERPRINT = "4865"
+#IDENTIFY_FAIL_FINGERPRINT = "5124"
+
