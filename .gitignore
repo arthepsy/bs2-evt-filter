@@ -1,5 +1,5 @@
 *~
-bs2-evt-filter*
-config.*
-*.crt
-*.key
+/bs2-evt-filter*
+/config.toml
+/*.crt
+/*.key
