@@ -50,7 +50,10 @@ func Protect(data []byte) ([]byte, error) {
 	inBlob := NewBlob(data)
 	var outBlob Blob
 	defer outBlob.free()
-	r, _, err := procCryptProtectData.Call(uintptr(unsafe.Pointer(inBlob)), 0, 0, 0, 0, CryptProtectUiForbidden, uintptr(unsafe.Pointer(&outBlob)))
+	r, _, err := procCryptProtectData.Call(
+		uintptr(unsafe.Pointer(inBlob)),
+		0, 0, 0, 0, CryptProtectUiForbidden,
+		uintptr(unsafe.Pointer(&outBlob)))
 	if r == 0 {
 		return nil, err
 	}
@@ -61,7 +64,10 @@ func Unprotect(data []byte) ([]byte, error) {
 	inBlob := NewBlob(data)
 	var outBlob Blob
 	defer outBlob.free()
-	r, _, err := procUnprotectData.Call(uintptr(unsafe.Pointer(inBlob)), 0, 0, 0, 0, CryptProtectUiForbidden, uintptr(unsafe.Pointer(&outBlob)))
+	r, _, err := procUnprotectData.Call(
+		uintptr(unsafe.Pointer(inBlob)),
+		0, 0, 0, 0, CryptProtectUiForbidden,
+		uintptr(unsafe.Pointer(&outBlob)))
 	if r == 0 {
 		return nil, err
 	}
