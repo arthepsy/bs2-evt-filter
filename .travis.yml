@@ -1,0 +1,10 @@
+language: go
+go:
+ - 1.11.x
+ - master
+
+install: true
+
+script:
+  - env GO111MODULE=on go build
+
