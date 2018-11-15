@@ -41,7 +41,7 @@ func (s *Server) start() {
 	mux.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		s.hub.Client(w, r)
 	})
-	s.srv = &http.Server{}
+	s.srv = new(http.Server)
 	s.wait.Add(1)
 	go func() {
 		defer s.wait.Done()
