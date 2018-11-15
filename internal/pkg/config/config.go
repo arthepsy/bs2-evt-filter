@@ -73,6 +73,12 @@ func (c *Config) reload() {
 	clients := new(ClientsConf)
 	auth := make(map[string]string)
 	for k, v := range viper.GetStringMapString("clients") {
+		if sstr.IsProtected(v) {
+			nv, err := sstr.UnprotectString(strings.ToLower(v))
+			if err == nil {
+				v = nv
+			}
+		}
 		auth[v] = k
 	}
 	clients.Auth = auth
