@@ -70,7 +70,6 @@ func (b *API) Auth() bool {
 	b.sessionID = ""
 	uw := &UserAuthWrapper{UserAuth{Username: b.username, Password: b.password}}
 	j, err := json.Marshal(uw)
-	log.Printf("%v\n", string(j))
 	if err != nil {
 		b.log("json.marshal failed with: %v", err)
 		return false
